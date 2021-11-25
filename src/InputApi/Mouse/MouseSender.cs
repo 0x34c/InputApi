@@ -4,10 +4,11 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
+using InputApi.Interfaces;
 
 namespace InputApi.Mouse
 {
-    public class MouseSender
+    public class MouseSender : ISender
     {
         private Button _Button;
         private int _x;

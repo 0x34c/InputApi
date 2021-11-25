@@ -5,10 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using InputApi.Mouse;
+using InputApi.Interfaces;
 
 namespace InputApi.Serializer
 {
-    public class MouseSerializer
+    public class MouseSerializer : ISerializer
     {
         private MouseInput[] _Inputs;
         private byte[] _Bytes;

@@ -44,14 +44,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Imports.cs" />
+    <Compile Include="Interfaces\ISender.cs" />
+    <Compile Include="Interfaces\ISerializer.cs" />
     <Compile Include="Keyboard\KeyboardInput.cs" />
     <Compile Include="Keyboard\KeyboardSender.cs" />
     <Compile Include="Keyboard\MultiKeyboardSender.cs" />
     <Compile Include="Mouse\MouseInput.cs" />
     <Compile Include="Mouse\MouseSender.cs" />
+    <Compile Include="Processes\ProcessSender.cs" />
+    <Compile Include="Processes\Window.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Serializer\KeyboardSerializer.cs" />
     <Compile Include="Serializer\MouseSerializer.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

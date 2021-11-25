@@ -6,10 +6,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using InputApi.Keyboard;
+using InputApi.Interfaces;
 
 namespace InputApi.Serializer
 {
-    public class KeyboardSerializer
+    public class KeyboardSerializer : ISerializer
     {
         private KeyboardInput[] _Inputs;
         private byte[] _Bytes;

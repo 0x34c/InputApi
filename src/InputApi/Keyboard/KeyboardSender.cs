@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
+using InputApi.Interfaces;
 
 namespace InputApi.Keyboard
 {
-    public class KeyboardSender
+    public class KeyboardSender : ISender
     {
         private Keys[] _Keys;
         private KeyboardMethod KeyboardMethod;

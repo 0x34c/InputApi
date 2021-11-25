@@ -5,10 +5,11 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using InputApi.Interfaces;
 
 namespace InputApi.Keyboard
 {
-    public class MultiKeyboardSender
+    public class MultiKeyboardSender : ISender
     {
         private KeyboardInput[] _Inputs;
 

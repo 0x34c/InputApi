@@ -1,5 +1,6 @@
 ﻿using System.Runtime.InteropServices;
 using System;
+using System.Text;
 
 namespace InputApi
 {
@@ -12,6 +13,39 @@ namespace InputApi
 
         [DllImport("user32.dll")]
         internal static extern uint MapVirtualKey(uint uCode, uint uMapType);
+
+        [DllImport("user32.dll")]
+        internal static extern bool PostMessage(IntPtr hWnd, uint Msg, IntPtr wParam, IntPtr lParam);
+        internal static uint WM_KEYDOWN = 0x0100;
+        internal static uint WM_KEYUP = 0x0101;
+        internal static uint WM_CHAR = 0x0102;
+        internal static uint WM_LBUTTONUP = 0x0202;
+        internal static uint WM_LBUTTONDOWN = 0x0201;
+
+
+        internal delegate bool EnumThreadDelegate(IntPtr hwnd, IntPtr lParam);
+        [DllImport("user32.dll")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        internal static extern bool EnumThreadWindows(int dwThreadId, EnumThreadDelegate lpfn, IntPtr lParam);
+
+        [DllImport("user32.dll")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        internal static extern bool EnumWindows(EnumThreadDelegate lpEnumFunc, IntPtr lParam);
+
+        [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+        internal static extern int GetWindowText(IntPtr hWnd, StringBuilder lpString, int nMaxCount);
+
+        [DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Auto)]
+        internal static extern int GetWindowTextLength(IntPtr hWnd);
+
+        //https://stackoverflow.com/questions/19144658/c-sharp-getting-windows-title-by-handle-in-hebrew-return-question-marks
+        public static string GetWindowTitle(IntPtr hWnd)
+        {
+            var length = GetWindowTextLength(hWnd) + 1;
+            var title = new StringBuilder(length);
+            GetWindowText(hWnd, title, length);
+            return title.ToString();
+        }
 
         [DllImport("user32.dll")]
         internal static extern int GetSystemMetrics(SystemMetric smIndex);
