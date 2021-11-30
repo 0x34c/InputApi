@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Diagnostics;
+using InputApi.Interfaces;
 
 namespace InputApi.Processes
 {
-    public class Window
+    public class Window : IWindow
     {
         public Process Process { get; }
         public IntPtr Handle { get; }
@@ -35,5 +36,19 @@ namespace InputApi.Processes
 
             return windows.ToArray();
         }
+
+        public Window[] GetChildWindows()
+        {
+            List<Window> windows = new List<Window>();
+
+            Imports.EnumChildWindows(this.Handle, (hwnd, lParam) =>
+            {
+                windows.Add(new Window(this.Process, hwnd, Imports.GetWindowTitle(hwnd)));
+                return true;
+            }, IntPtr.Zero);
+
+            return windows.ToArray();
+        }
+
     }
 }

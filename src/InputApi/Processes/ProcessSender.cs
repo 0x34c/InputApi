@@ -11,18 +11,18 @@ namespace InputApi.Processes
     public class ProcessSender : ISender
     {
         private KeyboardInput? _kbInput = null;
-        private Button? _msInput = null;
-        private Window _window;
+        private MouseInput? _msInput = null;
+        private IWindow _window;
 
-        public ProcessSender(KeyboardInput input, Window window)
+        public ProcessSender(KeyboardInput input, IWindow window)
         {
             _window = window;
             _kbInput = input;
         }
-        public ProcessSender(Button button, Window window)
+        public ProcessSender(MouseInput msInput, IWindow window)
         {
             _window = window;
-            _msInput = button;
+            _msInput = msInput;
         }
 
         
@@ -52,13 +52,19 @@ namespace InputApi.Processes
             }
             else if(_msInput.HasValue)
             {
-                switch(_msInput.Value)
+                switch(_msInput?.Button)
                 {
                     case Button.Left:
+                        Imports.PostMessage(_window.Handle, Imports.WM_LBUTTONDOWN, IntPtr.Zero, new IntPtr(Imports.MakeLParam(_msInput.Value.X, _msInput.Value.Y)));
+                        Imports.PostMessage(_window.Handle, Imports.WM_LBUTTONUP, IntPtr.Zero, new IntPtr(Imports.MakeLParam(_msInput.Value.X, _msInput.Value.Y)));
                         break;
                     case Button.Right:
+                        Imports.PostMessage(_window.Handle, Imports.WM_RBUTTONDOWN, IntPtr.Zero, new IntPtr(Imports.MakeLParam(_msInput.Value.X, _msInput.Value.Y)));
+                        Imports.PostMessage(_window.Handle, Imports.WM_RBUTTONUP, IntPtr.Zero, new IntPtr(Imports.MakeLParam(_msInput.Value.X, _msInput.Value.Y)));
                         break;
                     case Button.Middle:
+                        Imports.PostMessage(_window.Handle, Imports.WM_MBUTTONDOWN, IntPtr.Zero, new IntPtr(Imports.MakeLParam(_msInput.Value.X, _msInput.Value.Y)));
+                        Imports.PostMessage(_window.Handle, Imports.WM_MBUTTONUP, IntPtr.Zero, new IntPtr(Imports.MakeLParam(_msInput.Value.X, _msInput.Value.Y)));
                         break;
                 }
             }

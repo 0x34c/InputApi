@@ -14,6 +14,8 @@ namespace InputApi
         [DllImport("user32.dll")]
         internal static extern uint MapVirtualKey(uint uCode, uint uMapType);
 
+        internal static int MakeLParam(int x, int y) => (y << 16) | (x & 0xFFFF);
+
         [DllImport("user32.dll")]
         internal static extern bool PostMessage(IntPtr hWnd, uint Msg, IntPtr wParam, IntPtr lParam);
         internal static uint WM_KEYDOWN = 0x0100;
@@ -21,9 +23,17 @@ namespace InputApi
         internal static uint WM_CHAR = 0x0102;
         internal static uint WM_LBUTTONUP = 0x0202;
         internal static uint WM_LBUTTONDOWN = 0x0201;
-
+        internal static uint WM_RBUTTONUP = 0x0205;
+        internal static uint WM_RBUTTONDOWN = 0x0204;
+        internal static uint WM_MBUTTONUP = 0x0208;
+        internal static uint WM_MBUTTONDOWN = 0x0207;
 
         internal delegate bool EnumThreadDelegate(IntPtr hwnd, IntPtr lParam);
+
+        [DllImport("user32.dll")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        internal static extern bool EnumChildWindows(IntPtr hwndParent, EnumThreadDelegate lpEnumFunc, IntPtr lParam);
+
         [DllImport("user32.dll")]
         [return: MarshalAs(UnmanagedType.Bool)]
         internal static extern bool EnumThreadWindows(int dwThreadId, EnumThreadDelegate lpfn, IntPtr lParam);

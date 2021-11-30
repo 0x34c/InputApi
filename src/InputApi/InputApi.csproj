@@ -46,6 +46,7 @@
     <Compile Include="Imports.cs" />
     <Compile Include="Interfaces\ISender.cs" />
     <Compile Include="Interfaces\ISerializer.cs" />
+    <Compile Include="Interfaces\IWindow.cs" />
     <Compile Include="Keyboard\KeyboardInput.cs" />
     <Compile Include="Keyboard\KeyboardSender.cs" />
     <Compile Include="Keyboard\MultiKeyboardSender.cs" />
